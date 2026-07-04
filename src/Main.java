@@ -2,6 +2,7 @@
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.HashMap;
 
 public class Main {
 
@@ -11,6 +12,9 @@ public class Main {
 
         // cola de turnos (FIFO): el primero en llegar es el primero en atenderse
         Queue<Paciente> turnos = new LinkedList<>();
+
+        //lista para recordar y validar pila
+        HashMap<String, Paciente >registrado = new HashMap<>();
 
         int opcion = 0;
 
@@ -28,8 +32,10 @@ public class Main {
             switch (opcion) {
                 case 1:
                     // registra el paciente y lo encola al final
-                    Paciente nuevo = agregar.agregar(sc);
-                    turnos.offer(nuevo);
+                    Paciente nuevo = agregar.agregar(sc, registrado);
+                    if (nuevo != null){
+                        turnos.offer(nuevo);
+                    }
                     break;
                 case 2:
                     // saca al primero de la cola (FIFO)
@@ -38,13 +44,13 @@ public class Main {
                         System.out.println("No hay pacientes en espera.");
                     } else {
                         System.out.println("Atendiendo a: " + atendido.nombre
-                                + " (cedula " + atendido.cedula + ")");
+                                + " |cedula: " + atendido.cedula);
                     }
                     break;
                 case 3:
                     System.out.println("Pacientes en espera: " + turnos.size());
                     for (Paciente p : turnos) {
-                        System.out.println(" - " + p.nombre);
+                        System.out.println("Nombre:  " + p.nombre +" | Cedula: "+ p.cedula +" | Edad: " + p.edad);
                     }
                     break;
                 case 4:
@@ -60,23 +66,23 @@ public class Main {
 }
 
 // clase que se encarga de registrar un paciente
-class Agregar {
+// class Agregar {
 
-    // recibe el Scanner del main y devuelve el Paciente creado
-    public Paciente agregar(Scanner sc) {
-        // ingreso y recopilacion de datos
-        System.out.print("Nombre del Paciente: ");
-        String nombre = sc.nextLine();
+//     // recibe el Scanner del main y devuelve el Paciente creado
+//     public Paciente agregar(Scanner sc) {
+//         // ingreso y recopilacion de datos
+//         System.out.print("Nombre del Paciente: ");
+//         String nombre = sc.nextLine();
 
-        System.out.print("Cedula del Paciente: ");
-        String cedula = sc.nextLine();
+//         System.out.print("Cedula del Paciente: ");
+//         String cedula = sc.nextLine();
 
-        System.out.print("Edad del Paciente: ");
-        String edad = sc.nextLine();
+//         System.out.print("Edad del Paciente: ");
+//         String edad = sc.nextLine();
 
-        Paciente p = new Paciente(nombre, cedula, edad);
+//         Paciente p = new Paciente(nombre, cedula, edad);
 
-        System.out.println("Paciente " + p.nombre + " registrado");
-        return p;
-    }
-}
+//         System.out.println("Paciente " + p.nombre + " registrado");
+//         return p;
+//     }
+// }
