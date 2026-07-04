@@ -1,0 +1,10 @@
+# Clases compiladas de Java (se regeneran al compilar)
+bin/
+*.class
+
+# Archivos del sistema macOS
+.DS_Store
+
+# Carpetas de otras herramientas de build (por si acaso)
+target/
+out/
